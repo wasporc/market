@@ -1,4 +1,4 @@
-package org.market.market.rest;
+package org.market.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

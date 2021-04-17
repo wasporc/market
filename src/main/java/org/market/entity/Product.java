@@ -1,4 +1,4 @@
-package org.market.market.entity;
+package org.market.entity;
 
 import lombok.Data;
 

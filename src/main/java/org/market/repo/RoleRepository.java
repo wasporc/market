@@ -1,6 +1,6 @@
-package org.market.market.repo;
+package org.market.repo;
 
-import org.market.market.entity.Role;
+import org.market.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
