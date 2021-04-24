@@ -3,6 +3,8 @@ package org.market.rest;
 import lombok.AllArgsConstructor;
 import org.market.dto.JwtRequest;
 import org.market.dto.JwtResponse;
+import org.market.dto.RegistrationRequest;
+import org.market.entity.User;
 import org.market.service.JwtTokenUtil;
 import org.market.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +33,14 @@ public class AuthController {
         UserDetails userDetails = userService.loadUserByUsername(jwtRequest.getUsername());
         String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@RequestBody RegistrationRequest registrationRequest) {
+        User u = new User();
+        u.setPassword(registrationRequest.getPassword());
+        u.setLogin(registrationRequest.getLogin());
+        userService.saveUser(u);
+        return "OK";
     }
 }
