@@ -1,76 +1,114 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
     <changeSet author="wasp" id="1618078766047-1">
-        <preConditions onFail="MARK_RAN">
+        <preConditions>
             <not>
-                <tableExists tableName="persons"/>
+                <tableExists tableName="users"/>
             </not>
         </preConditions>
-        <createTable tableName="persons">
-            <column autoIncrement="true" name="id" type="BIGSERIAL">
-                <constraints primaryKey="true" primaryKeyName="persons_pkey"/>
-            </column>
-            <column name="first_name" type="VARCHAR(255)"/>
-            <column name="last_name" type="VARCHAR(255)"/>
-            <column name="login" type="VARCHAR(64)"/>
-            <column name="password" type="VARCHAR(64)"/>
-            <column name="role_id" type="BIGINT"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="wasp" id="1618078766047-2">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <foreignKeyConstraintExists foreignKeyName="role_id_key"/>
-            </not>
-        </preConditions>
-        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="persons" constraintName="role_id_key" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="role" validate="true"/>
-    </changeSet>
-    <changeSet author="wasp" id="1618079156425-1">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="persons_product"/>
-            </not>
-        </preConditions>
-        <createTable tableName="persons_product">
-            <column autoIncrement="true" name="id" type="BIGSERIAL">
-                <constraints primaryKey="true" primaryKeyName="persons_product_pkey"/>
-            </column>
-            <column name="persons_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="product_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="wasp" id="1618079156425-2">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <foreignKeyConstraintExists foreignKeyName="person_fk"/>
-            </not>
-        </preConditions>
-        <addForeignKeyConstraint baseColumnNames="persons_id" baseTableName="persons_product" constraintName="person_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="persons" validate="true"/>
-    </changeSet>
-    <changeSet author="wasp" id="1618079156425-3">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <foreignKeyConstraintExists foreignKeyName="product_fk"/>
-            </not>
-        </preConditions>
-        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="persons_product" constraintName="product_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="product" validate="true"/>
+        <sql>
+            create table if not exists users
+            (
+            id bigserial not null
+            constraint persons_pkey
+            primary key,
+            first_name varchar(255),
+            last_name varchar(255),
+            login varchar(64),
+            password varchar(64),
+            shopping_cart_id bigint
+            constraint users_sc_fk
+            references shopping_cart
+            );
+
+            alter table users owner to postgres;
+        </sql>
     </changeSet>
     <changeSet author="wasp" id="1618079191528-1">
-        <preConditions onFail="MARK_RAN">
+        <preConditions>
             <not>
                 <tableExists tableName="product"/>
             </not>
         </preConditions>
-        <createTable tableName="product">
-            <column autoIncrement="true" name="id" type="BIGSERIAL">
-                <constraints primaryKey="true" primaryKeyName="product_pkey"/>
-            </column>
-            <column name="name" type="VARCHAR(255)"/>
-            <column name="price" type="FLOAT8"/>
-        </createTable>
+        <sql>
+            create table product
+            (
+            id bigserial not null
+            constraint product_pkey
+            primary key,
+            name varchar(255),
+            price double precision
+            );
+
+            alter table product owner to postgres;
+        </sql>
+    </changeSet>
+    <changeSet id="create role base" author="wasp">
+        <preConditions>
+            <not>
+                <tableExists tableName="role"/>
+            </not>
+        </preConditions>
+        <sql>
+            create table role
+            (
+            id bigserial not null
+            constraint role_pkey
+            primary key,
+            name varchar(64)
+            );
+
+            alter table role owner to postgres;
+        </sql>
+    </changeSet>
+    <changeSet id="create users_roles base" author="wasp">
+        <sql>
+            create table if not exists users_roles
+            (
+            id bigserial not null
+            constraint person_roles_pk
+            primary key,
+            user_id bigint
+            constraint users_roles_user_fk
+            references users,
+            role_id bigint
+            constraint person_roles_role_fk
+            references role
+            );
+
+            alter table users_roles owner to postgres;
+        </sql>
+    </changeSet>
+    <changeSet id="create shopping_cart base" author="wasp">
+        <sql>
+            create table if not exists shopping_cart
+            (
+            id bigserial not null
+            constraint shopping_cart_pk
+            primary key,
+            user_id bigint
+            constraint shopping_cart_user_fk
+            references users
+            );
+
+            alter table shopping_cart owner to postgres;
+        </sql>
+    </changeSet>
+    <changeSet id="create shopping_cart_item" author="wasp">
+        <sql>
+            create table if not exists shopping_cart_item
+            (
+            id bigserial not null
+            constraint shopping_cart_item_pk
+            primary key,
+            shopping_cart_id bigint,
+            quantity integer,
+            product_id bigint
+            constraint shopping_cart_item_product_fk
+            references product
+            );
+
+            alter table shopping_cart_item owner to postgres;
+        </sql>
     </changeSet>
     <changeSet author="wasp" id="role_add">
         <preConditions onFail="MARK_RAN">
@@ -92,4 +130,16 @@
             INSERT INTO public.role (id, name) VALUES (3, 'ROLE_MANAGER');
         </sql>
     </changeSet>
+<!--    <changeSet id="add user" author="wasp">-->
+<!--        <preConditions>-->
+<!--            <not>-->
+<!--                <sqlCheck expectedResult="test1">-->
+<!--                    SELECT login from public.users WHERE login = 'test1'-->
+<!--                </sqlCheck>-->
+<!--            </not>-->
+<!--        </preConditions>-->
+<!--        <sql>-->
+<!--            INSERT INTO public.users (first_name, last_name, login, password, shopping_cart_id) VALUES (test, test, 'test1', '$2a$10$abpshqCGFT0hpyPHYpu2S.8Kjmh/4C8PTRLXhMB..ZxhR.gNEsGDu', 1);-->
+<!--        </sql>-->
+<!--    </changeSet>-->
 </databaseChangeLog>
