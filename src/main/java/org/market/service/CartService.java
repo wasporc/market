@@ -97,7 +97,7 @@ public class CartService {
             User user = userByLogin.get();
             cartAddToUser(user);
             if (user.getShoppingCart().getItems() != null){
-                return user.getShoppingCart().getItems()
+                List<UserCart> cartList =  user.getShoppingCart().getItems()
                         .stream()
                         .map(shoppingCartItem -> UserCart.builder()
                                 .id(shoppingCartItem.getProduct().getId())
@@ -106,6 +106,7 @@ public class CartService {
                                 .price(shoppingCartItem.getProduct().getPrice())
                                 .build())
                         .collect(Collectors.toList());
+                return cartList;
             }
         }
         return new ArrayList<>();
