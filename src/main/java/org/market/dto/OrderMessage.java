@@ -1,19 +1,17 @@
 package org.market.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserCart implements Serializable {
+public class OrderMessage implements Serializable {
     private Long id;
-    private String name;
-    private Integer quantity;
-    private Double price;
+    private String user;
+    private List<UserCart> cart;
 }

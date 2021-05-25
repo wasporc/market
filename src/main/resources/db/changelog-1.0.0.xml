@@ -130,6 +130,21 @@
             INSERT INTO public.role (id, name) VALUES (3, 'ROLE_MANAGER');
         </sql>
     </changeSet>
+    <changeSet id="create_order_table" author="wasp">
+        <sql>
+            create table if not exists orders
+            (
+            id bigserial not null
+            constraint orders_pk
+            primary key,
+            user_id bigint
+            constraint orders_user_fk
+            references users
+            );
+
+            alter table orders owner to postgres;
+        </sql>
+    </changeSet>
 <!--    <changeSet id="add user" author="wasp">-->
 <!--        <preConditions>-->
 <!--            <not>-->
