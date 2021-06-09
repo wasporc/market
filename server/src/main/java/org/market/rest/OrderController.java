@@ -1,9 +1,6 @@
 package org.market.rest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.market.dto.OrderMessage;
-import org.market.jms.ActivemqSendingMessageService;
 import org.market.service.AuthenticationFacade;
 import org.market.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +15,26 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private AuthenticationFacade facade;
-    @Autowired
-    private ActivemqSendingMessageService messageService;
+//    @Autowired
+//    private ActivemqSendingMessageService messageService;
 
-    @GetMapping("/message")
+//    @GetMapping("/message")
+//    public String getOrder(){
+//        OrderMessage order = orderService.getOrder(facade.getAuthentication().getName());
+//        try{
+//            ObjectMapper mapper = new ObjectMapper();
+//            String orderAsJson = mapper.writeValueAsString(order);
+//            messageService.sendMessage(orderAsJson);
+//        }catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//            return "ERROR";
+//        }
+//        return "OK";
+//    }
+    @GetMapping
     public String getOrder(){
         OrderMessage order = orderService.getOrder(facade.getAuthentication().getName());
-        try{
-            ObjectMapper mapper = new ObjectMapper();
-            String orderAsJson = mapper.writeValueAsString(order);
-            messageService.sendMessage(orderAsJson);
-        }catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return "ERROR";
-        }
+        orderService.saveOrder(order);
         return "OK";
     }
 }

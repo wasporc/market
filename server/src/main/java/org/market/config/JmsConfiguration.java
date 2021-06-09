@@ -2,9 +2,6 @@ package org.market.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
@@ -14,11 +11,11 @@ import org.springframework.jms.support.converter.MessageType;
 import javax.jms.ConnectionFactory;
 
 
-@Configuration
-@EnableJms
+//@Configuration
+//@EnableJms
 public class JmsConfiguration {
 
-    @Bean
+//    @Bean
     public JmsListenerContainerFactory<?> testListenerFactory(
             @Qualifier("jmsConnectionFactory") ConnectionFactory connectionFactory,
             DefaultJmsListenerContainerFactoryConfigurer configurer
@@ -28,7 +25,7 @@ public class JmsConfiguration {
         return factory;
     }
 
-    @Bean
+//    @Bean
     public MessageConverter jacksonJmsMessageConverter() {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);

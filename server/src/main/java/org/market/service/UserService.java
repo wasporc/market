@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +48,9 @@ public class UserService implements UserDetailsService {
 
     public User saveUser(User userEntity) {
         Role userRole = roleRepository.findByName("ROLE_USER");
-        userEntity.setRoles(List.of(userRole));
+        List<Role> roles = new ArrayList<>();
+        roles.add(userRole);
+        userEntity.setRoles(roles);
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         return userRepository.save(userEntity);
     }

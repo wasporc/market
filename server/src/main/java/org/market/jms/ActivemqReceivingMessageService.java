@@ -5,16 +5,13 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.market.dto.OrderMessage;
 import org.market.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class ActivemqReceivingMessageService {
-    @Autowired
+//    @Autowired
     private OrderService orderService;
 
-    @JmsListener(destination = "${spring.jms.template.default-destination}" ,containerFactory = "testListenerFactory")
+//    @JmsListener(destination = "${spring.jms.template.default-destination}" ,containerFactory = "testListenerFactory")
     public void receiveMessage(String order) throws JsonProcessingException {
         System.out.println("Received " + order);
         ObjectMapper mapper = new ObjectMapper();

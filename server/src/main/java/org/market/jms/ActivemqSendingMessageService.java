@@ -3,10 +3,9 @@ package org.market.jms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.stereotype.Component;
 
 
-@Component
+//@Component
 public class ActivemqSendingMessageService {
     private JmsTemplate jmsTemplate;
     private String queueName;
