@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
+import {environment} from "../environments/environment";
 
 interface myData {
   // status: "ok" | "error",
@@ -23,7 +24,7 @@ export class AuthService {
   }
 
   getUserDetails(username:any, password:any) {
-    return this.http.post<myData>('http://localhost:8080/market/auth', {
+    return this.http.post<myData>(environment.apiHost + '/auth', {
       username,
       password
     })

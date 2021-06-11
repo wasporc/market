@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {environment} from "../../environments/environment";
 
 export interface Product {
   id: number,
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get<Product[]>('http://localhost:8080/market/api/v1/products')
+    this.http.get<Product[]>(environment.apiHost + '/api/v1/products')
       .subscribe(data => {
         this.items = data;
         // console.log('items', this.items);

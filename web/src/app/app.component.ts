@@ -19,7 +19,7 @@ export class AppComponent implements OnInit{
     document.querySelector('.topnav')
       .querySelectorAll('a').forEach(a=>{
         if (a.id === target.id) target.classList.add('active')
-        else a.classList.remove('active');
+        else if (target.localName === 'a')a.classList.remove('active');
     })
   }
 

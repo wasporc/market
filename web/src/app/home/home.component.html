@@ -2,12 +2,15 @@
 <!--  <a routerLink="/login" class="button">Login</a>-->
 <!--  <a routerLink="/admin" class="button">Go to admin</a>-->
 <!--</div>-->
-<div class="card m-3">
-  <h3 class="card-header">Товары</h3>
-  <div class="card-body">
-    <div *ngFor="let item of pageOfProduct">{{item.id}} {{item.name}} {{item.price}}</div>
-  </div>
-  <div class="card-footer pb-0 pt-3">
-    <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
+<div class="content">
+  <div class="card m-3">
+    <h3 class="card-header">Товары</h3>
+    <div class="card-body">
+      <div *ngFor="let item of pageOfProduct">{{item.id}} {{item.name}} {{item.price}}</div>
+    </div>
+    <div class="card-footer pb-0 pt-3">
+      <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
+    </div>
   </div>
 </div>
+

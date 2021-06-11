@@ -26,3 +26,8 @@ h1 {
     background: white;
     color: black;
 }
+
+.content {
+  max-width: 1024px;
+  margin: auto;
+}
