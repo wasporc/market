@@ -145,16 +145,16 @@
             alter table orders owner to postgres;
         </sql>
     </changeSet>
-<!--    <changeSet id="add user" author="wasp">-->
-<!--        <preConditions>-->
-<!--            <not>-->
-<!--                <sqlCheck expectedResult="test1">-->
-<!--                    SELECT login from public.users WHERE login = 'test1'-->
-<!--                </sqlCheck>-->
-<!--            </not>-->
-<!--        </preConditions>-->
-<!--        <sql>-->
-<!--            INSERT INTO public.users (first_name, last_name, login, password, shopping_cart_id) VALUES (test, test, 'test1', '$2a$10$abpshqCGFT0hpyPHYpu2S.8Kjmh/4C8PTRLXhMB..ZxhR.gNEsGDu', 1);-->
-<!--        </sql>-->
-<!--    </changeSet>-->
+    <changeSet id="add user" author="wasp">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sqlCheck expectedResult="test1">
+                    SELECT login from public.users WHERE login = 'test1'
+                </sqlCheck>
+            </not>
+        </preConditions>
+        <sql>
+            INSERT INTO public.users (first_name, last_name, login, password, shopping_cart_id) VALUES (test, test, 'test1', '$2a$10$abpshqCGFT0hpyPHYpu2S.8Kjmh/4C8PTRLXhMB..ZxhR.gNEsGDu', 1);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
