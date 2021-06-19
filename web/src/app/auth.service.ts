@@ -6,12 +6,16 @@ interface myData {
   // status: "ok" | "error",
   // data: string
   token: string
+  userName: string;
+  userLogin: string;
+  role: Array<string>;
 }
 
 @Injectable()
 export class AuthService {
 
-  private loggedInStatus = false
+  private loggedInStatus = false;
+  private userInfo : myData | undefined;
 
   constructor(private http: HttpClient) { }
 
@@ -21,6 +25,14 @@ export class AuthService {
 
   get isLoggedIn() {
     return this.loggedInStatus
+  }
+
+  setUserInfo(data: myData){
+      this.userInfo = data;
+  }
+
+  get userInfoLogin(){
+     return this.userInfo;
   }
 
   getUserDetails(username:any, password:any) {

@@ -8,13 +8,15 @@ import {HomeComponent} from "./home/home.component";
 import {AuthService} from "./auth.service";
 import {HttpClientModule} from "@angular/common/http";
 import {JwPaginationComponent} from "jw-angular-pagination";
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    JwPaginationComponent
+    JwPaginationComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
