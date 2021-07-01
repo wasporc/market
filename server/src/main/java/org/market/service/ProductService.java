@@ -1,8 +1,10 @@
 package org.market.service;
 
 import lombok.RequiredArgsConstructor;
+import org.market.dto.ProductDto;
 import org.market.entity.Product;
 import org.market.repo.ProductRepository;
+import org.market.service.category.factory.CategoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,15 +16,19 @@ import java.util.stream.Collectors;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public static final Function<Product, org.market.soap.products.Product> functionEntityToSoap = pe -> {
-        org.market.soap.products.Product product = new org.market.soap.products.Product();
-        product.setId(pe.getId());
-        product.setName(pe.getName());
-        product.setPrice(pe.getPrice());
-        return product;
-    };
+    public static final Function<Product, ProductDto> functionEntityToSoap = pe -> ProductDto.builder()
+            .id(pe.getId())
+            .name(pe.getName())
+            .price(pe.getPrice())
+            .type(pe.getType())
+            .build();
 
-    public List<org.market.soap.products.Product> getAllProduct(){
-        return productRepository.findAll().stream().map(functionEntityToSoap).collect(Collectors.toList());
+    public List<ProductDto> getAllProduct(){
+        return productRepository.findAll()
+                .stream()
+                .map(functionEntityToSoap)
+                .map(productDto ->
+                        CategoryService.getService(productDto.getType()).addProductProperty(productDto))
+                .collect(Collectors.toList());
     }
 }
