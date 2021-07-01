@@ -6,7 +6,15 @@
   <div class="card m-3">
     <h3 class="card-header">Товары</h3>
     <div class="card-body">
-      <div *ngFor="let item of pageOfProduct">{{item.id}} {{item.name}} {{item.price}}</div>
+      <div *ngFor="let item of pageOfProduct">
+        <div class="item" data-id="{{item.id}}">
+<!--          <img src="img_avatar.png" alt="Avatar" style="width:100%">-->
+          <div class="container">
+            <h4><b>{{item.name}}</b></h4>
+            <p>Цена {{item.price}}</p>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="card-footer pb-0 pt-3">
       <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>

@@ -14,6 +14,15 @@
   border: none;
   cursor: pointer;
 }
+a {
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
 
 .login-container button:hover {
   background: #ccc;
@@ -53,4 +62,23 @@ input[type=text] {
   font-size: 17px;
   position: relative;
   top: 10px;
+}
+
+a {
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+a.active {
+  background-color: #04AA6D;
+  color: white;
 }

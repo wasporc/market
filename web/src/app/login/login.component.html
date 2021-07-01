@@ -2,10 +2,13 @@
   <form (submit)="loginUser($event)" *ngIf="Auth.isLoggedIn===false else login">
     <input type="text" placeholder="Username" name="username" id="username">
     <input type="text" placeholder="Password" name="psw" id="password">
+    <a routerLink="register">Регистрация</a>
     <button type="submit">Login</button>
   </form>
   <ng-template #login>
     <span class="hello">Hello, {{username}}</span>
+    <a routerLink="cart" id="cart">Корзина</a>
   </ng-template>
 </div>
+
 

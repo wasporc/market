@@ -3,7 +3,7 @@ package org.market.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,7 +23,7 @@ public class User {
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<Role> roles;
+    private List<Role> roles;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shopping_cart_id")

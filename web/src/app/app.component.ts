@@ -27,7 +27,7 @@ export class AppComponent implements OnInit{
     let path = window.location.pathname.split('/'),
         endPoint = path[path.length-1];
     // @ts-ignore
-    document.querySelector(`#${endPoint==="" ? 'home':endPoint}`)
-      .classList.add('active');
+    // document.querySelector(`#${endPoint==="" ? 'home':endPoint}`)
+    //   .classList.add('active');
   }
 }
