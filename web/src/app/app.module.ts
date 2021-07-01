@@ -9,6 +9,7 @@ import {AuthService} from "./auth.service";
 import {HttpClientModule} from "@angular/common/http";
 import {JwPaginationComponent} from "jw-angular-pagination";
 import { RegisterComponent } from './register/register.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { RegisterComponent } from './register/register.component';
     HomeComponent,
     LoginComponent,
     JwPaginationComponent,
-    RegisterComponent
+    RegisterComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

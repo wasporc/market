@@ -9,9 +9,6 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   username: string | undefined;
-  condition: boolean=true;
-
-
 
   constructor(private Auth: AuthService,
               private router: Router) { }

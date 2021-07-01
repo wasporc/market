@@ -1,0 +1,19 @@
+<div class="content">
+  <div class="card m-3">
+    <h3 class="card-header">Товары</h3>
+    <div class="card-body">
+      <div *ngFor="let item of items">
+        <div class="item" data-id="{{item.id}}">
+          <!--          <img src="img_avatar.png" alt="Avatar" style="width:100%">-->
+          <div class="container">
+            <h4><b>{{item.name}}</b></h4>
+            <p>Цена {{item.price}}</p>
+            <label for="quantity">Количество:</label>
+            <input type="number" min="1" step="1"
+                   id="quantity" name="quantity" value="{{item.quantity}}" required>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
