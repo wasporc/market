@@ -4,6 +4,10 @@ import org.market.dto.OrderMessage;
 import org.market.entity.Order;
 import org.market.entity.User;
 import org.market.repo.OrderRepository;
+import org.market.service.orders.decorator.OrderDiscountData;
+import org.market.service.orders.decorator.OrderPriceDecorator;
+import org.market.service.orders.decorator.WeekendSaleDecorator;
+import org.market.service.orders.decorator.WinterSaleDecorator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +28,12 @@ public class OrderService {
         OrderMessage order = new OrderMessage();
         order.setUser(userName);
         order.setCart(cartService.getCartList(userName));
+        OrderPriceDecorator priceDecorator =
+                new WeekendSaleDecorator(
+                    new WinterSaleDecorator(
+                        new OrderDiscountData(order)));
+        order.setPrice(priceDecorator.getOrderPrice());
+        order.setDiscount(priceDecorator.getDiscountPrice());
         return order;
     }
 
